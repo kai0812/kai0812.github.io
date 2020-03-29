@@ -1,32 +1,4 @@
-var width = 4;
-var height = 4;
-var cells = [
-	[0, 'S'],
-	[0, 0],
-	[0, 0],
-	[1, 0],
-	[0, 0],
-	[1, 0],
-	[0, 0],
-	[0, 0],
-	[0, 0],
-	[0, 0],
-	[1, 0],
-	[0, 0],
-	[0, 0],
-	[1, 0],
-	[0, 'G'],
-	[0, 0],
-];
-
-var here = 0;
-var point = [0, 0];
-var goalPoint = [2, 3];
-var imgWidth = document.getElementById('ue-img').clientWidth;
-console.log(imgWidth);
-$('#ue-img').css('left', 'calc(50% - ' + imgWidth / 2 + 'px)');
-
-function displayHere(here) {
+function displayHere(here, cells, width, height, point, goalPoint) {
 	$('.box').css('border', '1px solid black');
 	if (cells[here][0] == 0) {
 		$('.box').css('background-color', 'white');
@@ -38,38 +10,38 @@ function displayHere(here) {
 	} else {
 		$('.box').text('');
 	}
-	if (isRight(here)) {
+	if (isRight(here, width)) {
 		if (cells[here + 1][0] == 1) {
 			$('.box').css('border-right', '6px solid black');
 		}
 	} else {
 		$('.box').css('border-right', '3px solid black');
 	}
-	if (isLeft(here)) {
+	if (isLeft(here, width)) {
 		if (cells[here - 1][0] == 1) {
 			$('.box').css('border-left', '6px solid black');
 		}
 	} else {
 		$('.box').css('border-left', '3px solid black');
 	}
-	if (isUp(here)) {
+	if (isUp(here, width)) {
 		if (cells[here - width][0] == 1) {
 			$('.box').css('border-top', '6px solid black');
 		}
 	} else {
 		$('.box').css('border-top', '3px solid black');
 	}
-	if (isDown(here)) {
+	if (isDown(here, width, height)) {
 		if (cells[here + width][0] == 1) {
 			$('.box').css('border-bottom', '6px solid black');
 		}
 	} else {
 		$('.box').css('border-bottom', '3px solid black');
 	}
-	rotateArrow(point);
+	rotateArrow(point, point, goalPoint);
 }
 
-function rotateArrow(point) {
+function rotateArrow(point, point, goalPoint) {
 	if (goalPoint[0] == point[0] && goalPoint[1] == point[1]) {
 		$('#ue-img').css('display', 'none');
 		$('.displayClear').css('display', 'block');
@@ -78,49 +50,49 @@ function rotateArrow(point) {
 	var atan = Math.atan((goalPoint[0] - point[0]) / (goalPoint[1] - point[1])) * (180 / Math.PI);
 	$('#ue-img').css('transform', 'rotate(' + (180 - atan) + 'deg)');
 }
-function isRight(here) {
+function isRight(here, width) {
 	return here % width != width - 1;
 }
-function isLeft(here) {
+function isLeft(here, width) {
 	return here % width != 0;
 }
-function isUp(here) {
+function isUp(here, width) {
 	return here > width - 1;
 }
-function isDown(here) {
+function isDown(here, width, height) {
 	return here < width * (height - 1);
 }
 
-function canRight(here) {
+function canRight(here, width, cells) {
 	var flag = false;
-	if (isRight(here)) {
+	if (isRight(here, width)) {
 		if (cells[here + 1][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
 }
-function canLeft(here) {
+function canLeft(here, width, cells) {
 	var flag = false;
-	if (isLeft(here)) {
+	if (isLeft(here, width)) {
 		if (cells[here - 1][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
 }
-function canUp(here) {
+function canUp(here, width, cells) {
 	var flag = false;
-	if (isUp(here)) {
+	if (isUp(here, width)) {
 		if (cells[here - width][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
 }
-function canDown(here) {
+function canDown(here, width, height, cells) {
 	var flag = false;
-	if (isDown(here)) {
+	if (isDown(here, width, height)) {
 		if (cells[here + width][0] == 0) {
 			flag = true;
 		}
@@ -128,40 +100,74 @@ function canDown(here) {
 	return flag;
 }
 
-displayHere(here);
+function playFirst() {
+	var width = 4;
+	var height = 4;
+	var cells = [
+		[0, 'S'],
+		[0, 0],
+		[0, 0],
+		[1, 0],
+		[0, 0],
+		[1, 0],
+		[0, 0],
+		[0, 0],
+		[0, 0],
+		[0, 0],
+		[1, 0],
+		[0, 0],
+		[0, 0],
+		[1, 0],
+		[0, 'G'],
+		[0, 0],
+	];
+	var here = 0;
+	var point = [0, 0];
+	var goalPoint = [2, 3];
+	var imgWidth = document.getElementById('ue-img').clientWidth;
+	$('#ue-img').css('left', 'calc(50% - ' + imgWidth / 2 + 'px)');
 
-$('html').keyup(function(e) {
-	switch (e.which) {
-		case 39: // Key[→]
-			if (canRight(here)) {
-				here++;
-				point[0]++;
-				displayHere(here);
-			}
-			break;
+	displayHere(here, cells, width, height, point, goalPoint);
 
-		case 37: // Key[←]
-			if (canLeft(here)) {
-				here--;
-				point[0]--;
-				displayHere(here);
-			}
-			break;
+	$('html').keyup(function(e) {
+		if (!(goalPoint[0] == point[0] && goalPoint[1] == point[1])) {
+			switch (e.which) {
+				case 39: // Key[→]
+					if (canRight(here, width, cells)) {
+						here++;
+						point[0]++;
+						displayHere(here, cells, width, height, point, goalPoint);
+					}
+					break;
 
-		case 38: // Key[↑]
-			if (canUp(here)) {
-				here -= width;
-				point[1]--;
-				displayHere(here);
-			}
-			break;
+				case 37: // Key[←]
+					if (canLeft(here, width, cells)) {
+						here--;
+						point[0]--;
+						displayHere(here, cells, width, height, point, goalPoint);
+					}
+					break;
 
-		case 40: // Key[↓]
-			if (canDown(here)) {
-				here += width;
-				point[1]++;
-				displayHere(here);
+				case 38: // Key[↑]
+					if (canUp(here, width, cells)) {
+						here -= width;
+						point[1]--;
+						displayHere(here, cells, width, height, point, goalPoint);
+					}
+					break;
+
+				case 40: // Key[↓]
+					if (canDown(here, width, height, cells)) {
+						here += width;
+						point[1]++;
+						displayHere(here, cells, width, height, point, goalPoint);
+					}
+					break;
 			}
-			break;
-	}
-});
+		}
+	});
+
+	
+}
+
+playFirst();
