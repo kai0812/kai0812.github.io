@@ -50,19 +50,23 @@ function displayHere(here, cells, width, height, point, goalPoint, change) {
 }
 
 function rotateArrow(point, goalPoint, change) {
+	if (goalPoint[0] == point[0] && goalPoint[1] == point[1] && change == 1) {
+		$('#ue-img').css('display', 'none');
+		return 0;
+	} else {
+		$('#ue-img').css('display', 'block');
+	}
 	if (goalPoint[0] == point[0] && goalPoint[1] == point[1] && change == 0) {
 		$('#ue-img').css('display', 'none');
 		$('.displayClear').css('display', 'block');
 		return 0;
 	}
+
 	var atan = 180 - Math.atan((goalPoint[0] - point[0]) / (goalPoint[1] - point[1])) * (180 / Math.PI);
 	if (goalPoint[1] < point[1]) {
 		atan = 360 - Math.atan((goalPoint[0] - point[0]) / (goalPoint[1] - point[1])) * (180 / Math.PI);
 	}
 	$('#ue-img').css('transform', 'rotate(' + atan + 'deg)');
-	console.log(180 - atan);
-	console.log(point);
-	console.log(goalPoint);
 }
 function isRight(here, width) {
 	return here % width != width - 1;
@@ -114,271 +118,296 @@ function canDown(here, width, height, cells) {
 	return flag;
 }
 
-function playSecond() {
-	var width = 4;
-	var height = 4;
-	var cells = [
-		[0, 'S'],
-		[0, 0],
-		[0, 0],
-		[0, 0],
+var width = 4;
+var height = 4;
+var cells = [
+	[0, 'S'],
+	[0, 0],
+	[0, 0],
+	[0, 0],
 
-		[1, 0],
-		[0, 0],
-		[1, 0],
-		[0, 0],
+	[1, 0],
+	[0, 0],
+	[1, 0],
+	[0, 0],
 
-		[0, 'G'],
-		[1, 0],
-		[0, 0],
-		[0, 0],
+	[0, 'G'],
+	[1, 0],
+	[0, 0],
+	[0, 0],
 
-		[0, 0],
-		[1, 0],
-		[2, 0],
-		[0, 0],
-	];
-	var here = 0;
-	var point = [0, 0];
-	var goalPoint = [0, 2];
-	var imgWidth = document.getElementById('ue-img').clientWidth;
-	$('#ue-img').css('left', 'calc(50% - ' + imgWidth / 2 + 'px)');
+	[0, 0],
+	[1, 0],
+	[2, 0],
+	[0, 0],
+];
+var here = 0;
+var point = [0, 0];
+var goalPoint = [0, 2];
+var startPoint = [0, 0];
+var imgWidth = document.getElementById('ue-img').clientWidth;
+$('#ue-img').css('left', 'calc(50% - ' + imgWidth / 2 + 'px)');
 
-	var change = 0;
-	$('.changeW').click(function() {
-		$(this).css('display', 'none');
-		change = 1;
-		here = 0;
-		point = [0, 0];
-		displayHere(here, cells, width, height, point, goalPoint, change);
-	});
-	$('.changeWB').click(function() {
-		$('.changeW').css('display', 'block');
-		change = 0;
-		here = 0;
-		point = [0, 0];
-		displayHere(here, cells, width, height, point, goalPoint, change);
-	});
-
+var change = 0;
+$('.changeW').click(function() {
+	$(this).css('display', 'none');
+	change = 1;
+	here = startPoint[0] + startPoint[1] * width;
+	point[0] = startPoint[0];
+	point[1] = startPoint[1];
 	displayHere(here, cells, width, height, point, goalPoint, change);
+});
+$('.changeWB').click(function() {
+	$('.changeW').css('display', 'block');
+	change = 0;
+	here = startPoint[0] + startPoint[1] * width;
+	point[0] = startPoint[0];
+	point[1] = startPoint[1];
+	displayHere(here, cells, width, height, point, goalPoint, change);
+});
 
-	$('html').keyup(function(e) {
-		if (change == 0) {
-			switch (e.which) {
-				case 13:
-					var canMove = 0;
-					var moveList = [0, 0, 0, 0];
-					if (isUp(here, width)) {
-						moveList[0] = 1;
-					}
-					if (isRight(here, width)) {
-						moveList[1] = 1;
-					}
-					if (isDown(here, width, height)) {
-						moveList[2] = 1;
-					}
-					if (isLeft(here, width)) {
-						moveList[3] = 1;
-					}
+displayHere(here, cells, width, height, point, goalPoint, change);
 
-					for (var i = 0; i < 4; i++) {
-						if (moveList[i] == 1) {
-							switch (i) {
-								case 0:
-									if (cells[here - width][0] == 2) {
-										canMove = -width;
-									}
-									break;
-								case 1:
-									if (cells[here + 1][0] == 2) {
-										canMove = 1;
-									}
-									break;
-								case 2:
-									if (cells[here + width][0] == 2) {
-										canMove = width;
-									}
-									break;
-								case 3:
-									if (cells[here - 1][0] == 2) {
-										canMove = -1;
-									}
-									break;
-							}
-						}
-					}
+$('html').keyup(function(e) {
+	if (change == 0) {
+		switch (e.which) {
+			case 13:
+				var canMove = 0;
+				var moveList = [0, 0, 0, 0];
+				if (isUp(here, width)) {
+					moveList[0] = 1;
+				}
+				if (isRight(here, width)) {
+					moveList[1] = 1;
+				}
+				if (isDown(here, width, height)) {
+					moveList[2] = 1;
+				}
+				if (isLeft(here, width)) {
+					moveList[3] = 1;
+				}
 
-					if (canMove != 0) {
-						var tmpList = cells[here];
-
-						cells[here] = [2, 0];
-						cells[here + canMove] = tmpList;
-						here = here + canMove;
-
-						switch (canMove) {
-							case -width:
-								point[1]--;
+				for (var i = 0; i < 4; i++) {
+					if (moveList[i] == 1) {
+						switch (i) {
+							case 0:
+								if (cells[here - width][0] == 2) {
+									canMove = -width;
+								}
 								break;
 							case 1:
-								point[0]++;
+								if (cells[here + 1][0] == 2) {
+									canMove = 1;
+								}
 								break;
-							case width:
-								point[1]++;
+							case 2:
+								if (cells[here + width][0] == 2) {
+									canMove = width;
+								}
 								break;
-							case -1:
-								point[0]--;
+							case 3:
+								if (cells[here - 1][0] == 2) {
+									canMove = -1;
+								}
 								break;
 						}
 					}
+				}
 
+				if (canMove != 0) {
+					var tmpList = cells[here];
+
+					cells[here] = [2, 0];
+					cells[here + canMove] = tmpList;
+					here = here + canMove;
+
+					switch (canMove) {
+						case -width:
+							point[1]--;
+							break;
+						case 1:
+							point[0]++;
+							break;
+						case width:
+							point[1]++;
+							break;
+						case -1:
+							point[0]--;
+							break;
+					}
+				}
+
+				for (var i = 0; i < height * width; i++) {
+					if (cells[i][1] == 'G') {
+						goalPoint[0] = i % width;
+						goalPoint[1] = Math.floor(i / width);
+						console.log(goalPoint);
+					}
+					if (cells[i][1] == 'S') {
+						startPoint[0] = i % width;
+						startPoint[1] = Math.floor(i / width);
+						console.log(startPoint);
+					}
+				}
+
+				displayHere(here, cells, width, height, point, goalPoint, change);
+				break;
+
+			case 39: // Key[→]
+				if (canRight(here, width, cells)) {
+					here++;
+					point[0]++;
 					displayHere(here, cells, width, height, point, goalPoint, change);
-					break;
+				}
+				break;
 
-				case 39: // Key[→]
-					if (canRight(here, width, cells)) {
+			case 37: // Key[←]
+				if (canLeft(here, width, cells)) {
+					here--;
+					point[0]--;
+					displayHere(here, cells, width, height, point, goalPoint, change);
+				}
+				break;
+
+			case 38: // Key[↑]
+				if (canUp(here, width, cells)) {
+					here -= width;
+					point[1]--;
+					displayHere(here, cells, width, height, point, goalPoint, change);
+				}
+				break;
+
+			case 40: // Key[↓]
+				if (canDown(here, width, height, cells)) {
+					here += width;
+					point[1]++;
+					displayHere(here, cells, width, height, point, goalPoint, change);
+				}
+				break;
+		}
+	} else if (change == 1) {
+		switch (e.which) {
+			case 13:
+				var canMove = 0;
+				var moveList = [0, 0, 0, 0];
+				if (isUp(here, width)) {
+					moveList[0] = 1;
+				}
+				if (isRight(here, width)) {
+					moveList[1] = 1;
+				}
+				if (isDown(here, width, height)) {
+					moveList[2] = 1;
+				}
+				if (isLeft(here, width)) {
+					moveList[3] = 1;
+				}
+
+				for (var i = 0; i < 4; i++) {
+					if (moveList[i] == 1) {
+						switch (i) {
+							case 0:
+								if (cells[here - width][0] == 2) {
+									canMove = -width;
+								}
+								break;
+							case 1:
+								if (cells[here + 1][0] == 2) {
+									canMove = 1;
+								}
+								break;
+							case 2:
+								if (cells[here + width][0] == 2) {
+									canMove = width;
+								}
+								break;
+							case 3:
+								if (cells[here - 1][0] == 2) {
+									canMove = -1;
+								}
+								break;
+						}
+					}
+				}
+
+				if (canMove != 0) {
+					var tmpList = cells[here];
+
+					cells[here] = [2, 0];
+					cells[here + canMove] = tmpList;
+					here = here + canMove;
+
+					switch (canMove) {
+						case -width:
+							point[1]--;
+							break;
+						case 1:
+							point[0]++;
+							break;
+						case width:
+							point[1]++;
+							break;
+						case -1:
+							point[0]--;
+							break;
+					}
+				}
+
+				for (var i = 0; i < height * width; i++) {
+					if (cells[i][1] == 'G') {
+						goalPoint[0] = i % width;
+						goalPoint[1] = Math.floor(i / width);
+						console.log(goalPoint);
+					}
+					if (cells[i][1] == 'S') {
+						startPoint[0] = i % width;
+						startPoint[1] = Math.floor(i / width);
+						console.log(startPoint);
+					}
+				}
+				
+				displayHere(here, cells, width, height, point, goalPoint, change);
+				break;
+
+			case 39: // Key[→]
+				if (isRight(here, width, cells)) {
+					if (cells[here + 1][0] != 2) {
 						here++;
 						point[0]++;
 						displayHere(here, cells, width, height, point, goalPoint, change);
 					}
-					break;
+				}
+				break;
 
-				case 37: // Key[←]
-					if (canLeft(here, width, cells)) {
+			case 37: // Key[←]
+				if (isLeft(here, width, cells)) {
+					if (cells[here - 1][0] != 2) {
 						here--;
 						point[0]--;
 						displayHere(here, cells, width, height, point, goalPoint, change);
 					}
-					break;
+				}
+				break;
 
-				case 38: // Key[↑]
-					if (canUp(here, width, cells)) {
+			case 38: // Key[↑]
+				if (isUp(here, width, cells)) {
+					if (cells[here - width][0] != 2) {
 						here -= width;
 						point[1]--;
 						displayHere(here, cells, width, height, point, goalPoint, change);
 					}
-					break;
+				}
+				break;
 
-				case 40: // Key[↓]
-					if (canDown(here, width, height, cells)) {
+			case 40: // Key[↓]
+				if (isDown(here, width, height, cells)) {
+					if (cells[here + width][0] != 2) {
 						here += width;
 						point[1]++;
 						displayHere(here, cells, width, height, point, goalPoint, change);
 					}
-					break;
-			}
-		} else if (change == 1) {
-			switch (e.which) {
-				case 13:
-					var canMove = 0;
-					var moveList = [0, 0, 0, 0];
-					if (isUp(here, width)) {
-						moveList[0] = 1;
-					}
-					if (isRight(here, width)) {
-						moveList[1] = 1;
-					}
-					if (isDown(here, width, height)) {
-						moveList[2] = 1;
-					}
-					if (isLeft(here, width)) {
-						moveList[3] = 1;
-					}
-
-					for (var i = 0; i < 4; i++) {
-						if (moveList[i] == 1) {
-							switch (i) {
-								case 0:
-									if (cells[here - width][0] == 2) {
-										canMove = -width;
-									}
-									break;
-								case 1:
-									if (cells[here + 1][0] == 2) {
-										canMove = 1;
-									}
-									break;
-								case 2:
-									if (cells[here + width][0] == 2) {
-										canMove = width;
-									}
-									break;
-								case 3:
-									if (cells[here - 1][0] == 2) {
-										canMove = -1;
-									}
-									break;
-							}
-						}
-					}
-
-					if (canMove != 0) {
-						var tmpList = cells[here];
-
-						cells[here] = [2, 0];
-						cells[here + canMove] = tmpList;
-						here = here + canMove;
-
-						switch (canMove) {
-							case -width:
-								point[1]--;
-								break;
-							case 1:
-								point[0]++;
-								break;
-							case width:
-								point[1]++;
-								break;
-							case -1:
-								point[0]--;
-								break;
-						}
-					}
-
-					displayHere(here, cells, width, height, point, goalPoint, change);
-					break;
-
-				case 39: // Key[→]
-					if (isRight(here, width, cells)) {
-						if (cells[here + 1][0] != 2) {
-							here++;
-							point[0]++;
-							displayHere(here, cells, width, height, point, goalPoint, change);
-						}
-					}
-					break;
-
-				case 37: // Key[←]
-					if (isLeft(here, width, cells)) {
-						if (cells[here - 1][0] != 2) {
-							here--;
-							point[0]--;
-							displayHere(here, cells, width, height, point, goalPoint, change);
-						}
-					}
-					break;
-
-				case 38: // Key[↑]
-					if (isUp(here, width, cells)) {
-						if (cells[here - width][0] != 2) {
-							here -= width;
-							point[1]--;
-							displayHere(here, cells, width, height, point, goalPoint, change);
-						}
-					}
-					break;
-
-				case 40: // Key[↓]
-					if (isDown(here, width, height, cells)) {
-						if (cells[here + width][0] != 2) {
-							here += width;
-							point[1]++;
-							displayHere(here, cells, width, height, point, goalPoint, change);
-						}
-					}
-					break;
-			}
+				}
+				break;
 		}
-	});
-}
-
-playSecond();
+	}
+});
