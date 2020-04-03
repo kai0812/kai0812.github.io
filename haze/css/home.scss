@@ -12,8 +12,31 @@ body {
 .main-left {
 	width: 50%;
 }
+a {
+	text-decoration: none;
+	color: blue;
+}
 .main-right {
 	width: 50%;
+	display: flex;
+	flex-direction: column;
+	a {
+		display: block;
+		margin: 12px auto 0 5%;
+		color: black;
+		font-size: 32px;
+		text-align: center;
+		padding: 17px;
+		width: 85%;
+		border: 1.5px solid black;
+		line-height: 100%;
+		transition-duration: 0.5s;
+		cursor: pointer;
+		&:hover {
+			background-color: black;
+			color: white;
+		}
+	}
 }
 
 .title {
@@ -21,6 +44,13 @@ body {
 	width: 100%;
 	text-align: center;
 	margin: 50px auto;
+	&:hover {
+		font-size: 0;
+		&:before {
+			font-size: 10vw;
+			content: 'MAZE';
+		}
+	}
 }
 .caution {
 	padding: 15px 20px 0 30px;
@@ -33,27 +63,4 @@ body {
 		padding: 10px;
 		line-height: 150%;
 	}
-}
-a {
-    text-decoration: none;
-    color: blue;
-}
-.work-title {
-	display: block;
-	position: relative;
-	border: 2px solid black;
-	color: black;
-	font-size: 32px;
-	text-align: center;
-	padding: 15px;
-	margin: 15px auto 15px 4vw;
-	width: 40vw;
-	line-height: 100%;
-	transition-duration: 0.5s;
-	cursor: pointer;
-	&:hover {
-		background-color: black;
-		color: white;
-	}
-
 }
