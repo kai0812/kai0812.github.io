@@ -62,11 +62,16 @@ function rotateArrow(point, goalPoint, change) {
 		return 0;
 	}
 
-	var atan = 180 - Math.atan((goalPoint[0] - point[0]) / (goalPoint[1] - point[1])) * (180 / Math.PI);
-	if (goalPoint[1] < point[1]) {
-		atan = 360 - Math.atan((goalPoint[0] - point[0]) / (goalPoint[1] - point[1])) * (180 / Math.PI);
+	var atan = Math.atan((goalPoint[1] - point[1]) / (goalPoint[0] - point[0])) * (180 / Math.PI);
+
+	var theta;
+	if (goalPoint[0] - point[0] >= 0) {
+		theta = 90 + atan;
+	} else {
+		theta = atan - 90;
 	}
-	$('#ue-img').css('transform', 'rotate(' + atan + 'deg)');
+
+	$('#ue-img').css('transform', 'rotate(' + theta + 'deg)');
 }
 function isRight(here, width) {
 	return here % width != width - 1;
