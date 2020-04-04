@@ -1,0 +1,28 @@
+body {
+	background-color: #ccc;
+	font-family: 'Times New Roman', Times, serif;
+}
+
+* {
+	box-sizing: border-box;
+	user-select: none;
+}
+
+table {
+	position: absolute;
+	top: 30px;
+	left: 50%;
+	transform: translateX(-50%);
+	border-collapse: collapse;
+	td {
+		border-color: black;
+		border: solid 1px;
+		width: 80px;
+		height: 80px;
+		background-color: white;
+		line-height: 80px;
+		text-align: center;
+		font-size: 65px;
+		color: black;
+	}
+}

@@ -154,3 +154,17 @@ body {
 #box-2 {
 	left: 56vw;
 }
+
+.reset {
+	position: absolute;
+	height: 30vh;
+	right: calc(25vw - 15vh);
+	top: 50%;
+	transform: translate(50%, -50%);
+	transition: opacity .5s;
+	opacity: 1;
+	cursor: pointer;
+	&:hover {
+		opacity: .5;
+	}
+}
