@@ -109,7 +109,8 @@ table {
 
 @media screen and (min-width: 640px) {
 	.button-wrap .button:hover,
-	.reset:hover {
+	.reset:hover,
+	.reload:hover {
 		opacity: 0.5;
 	}
 }
@@ -142,10 +143,6 @@ table {
 	}
 }
 
-.clear-img {
-	display: none;
-}
-
 .displayClear {
 	display: block;
 	position: absolute;
@@ -159,7 +156,7 @@ table {
 	animation-name: displayImg;
 	animation-duration: 1s;
 	animation-timing-function: ease;
-	img {
+	.clear-img {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -167,7 +164,20 @@ table {
 		height: 50%;
 		max-width: 90%;
 		pointer-events: none;
+		// border: 1px solid black;
 	}
+}
+
+.reload {
+	display: none;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%);
+	// border: 1px solid black;
+	cursor: pointer;
+}
+.clear-img {
+	display: none;
 }
 
 .share-btn {

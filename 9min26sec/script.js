@@ -9,9 +9,9 @@ $('html').keyup(function (e) {
 		if (49 <= e.which && e.which <= 56) {
 			inputNumber(e.which - 48);
 		}
-	}
-	if (e.which == 13) {
-		reset();
+		if (e.which == 13) {
+			reset();
+		}
 	}
 });
 
@@ -73,6 +73,7 @@ function displayCircle() {
 		$(window).resize(function () {
 			displayShareButton();
 		});
+		$('.reload').css('display', 'inline-block');
 	} else {
 		flag_cnt = 0;
 	}
@@ -99,6 +100,10 @@ function displayShareButton() {
 		top: window_height / 2 + clear_height / 2 + 'px',
 		right: window_width / 2 - clear_width / 2 + 'px',
 	});
+	$('.reload').css({
+		top: window_height / 2 + clear_height / 2 + (window_height / 100) * 5 + 'px',
+		height: ((window_height - clear_height) / 2) * 0.5 + 'px',
+	});
 }
 
 var windowWidth = window.innerWidth;
@@ -110,3 +115,14 @@ if (windowWidth < 1100) {
 		top: (windowHeight / 100) * 30 + (windowWidth / 100) * 24 + 'px',
 	});
 }
+
+$('.reload').on('click touchstart', function () {
+	$('.reload').css('display', 'none');
+	$('.clear-img').css('display', 'none');
+	$('.share-btn').css({
+		top: '-50%',
+		right: '-50%',
+	});
+	$('.clear').removeClass('displayClear');
+	reset();
+});
