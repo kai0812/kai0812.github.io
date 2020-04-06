@@ -15,10 +15,10 @@ $('html').keyup(function (e) {
 	}
 });
 
-$('.reset').on('click touchstart', function () {
+$('.reset').on('touchstart click', function () {
 	reset();
 });
-$('.button').on('click touchstart', function () {
+$('.button').on('touchstart click', function () {
 	if (0 < $(this).data('num')) {
 		inputNumber($(this).data('num'));
 	} else {
