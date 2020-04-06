@@ -57,10 +57,15 @@ function displayCircle() {
 		} else {
 			$('.s' + (-i + 9)).css('background-color', 'black');
 		}
-		if (flag_cnt == 18) {
-			$('.clear').addClass('displayClear');
-			$('.clear-img').css('display', 'inline-block');
-		}
+
+		console.log(flag_cnt);
+		// if (flag_cnt == 18) {
+		// 	$('.clear').addClass('displayClear');
+		// 	$('.clear-img').css('display', 'inline-block');
+			
+		// }else {
+		// 	flag_cnt = 0;
+		// }
 	}
 	$('.circle').css('opacity', 1);
 }
@@ -74,4 +79,5 @@ function reset() {
 	num_cnt = 1;
 	flag = false;
 	$('.circle').css('opacity', 0);
+	flag_cnt = 0;
 }
