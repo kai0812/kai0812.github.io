@@ -100,10 +100,20 @@ function displayShareButton() {
 		top: window_height / 2 + clear_height / 2 + 'px',
 		right: window_width / 2 - clear_width / 2 + 'px',
 	});
+	if (window_width < 650) {
+		$('.share-btn').css({
+			top: window_height / 2 + clear_height / 2 - (window_height / 100) * 10 + 'px',
+		});
+	}
 	$('.reload').css({
 		top: window_height / 2 + clear_height / 2 + (window_height / 100) * 5 + 'px',
 		height: ((window_height - clear_height) / 2) * 0.5 + 'px',
 	});
+	if (window_width < 650) {
+		$('.reload').css({
+			height: ((window_height - clear_height) / 2) * 0.4 + 'px',
+		});
+	}
 }
 
 var windowWidth = window.innerWidth;
