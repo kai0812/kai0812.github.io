@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="278.68463mm"
-   height="278.68463mm"
-   viewBox="0 0 278.68462 278.68463"
+   width="278.94922mm"
+   height="278.94922mm"
+   viewBox="0 0 278.94921 278.94922"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
@@ -26,8 +26,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.54"
-     inkscape:cx="504.79634"
-     inkscape:cy="393.82793"
+     inkscape:cx="493.7913"
+     inkscape:cy="394.62793"
      inkscape:document-units="mm"
      inkscape:current-layer="flowRoot843"
      showgrid="false"
@@ -64,7 +64,7 @@
      inkscape:label="レイヤー 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-30.478239,0.35185822)">
+     transform="translate(-30.345948,0.48414989)">
     <flowRoot
        xml:space="preserve"
        id="flowRoot827"
@@ -82,14 +82,14 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:133.33334351px;line-height:0;font-family:Ebrima;-inkscape-font-specification:Ebrima;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:-4.40999985px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
        id="flowRoot843">
       <circle
-         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5.78272222;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:6.60882521;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="path977"
          cx="500.64996"
          cy="340.21796"
          r="432.17432" />
       <g
          aria-label="RESET"
-         transform="matrix(1.5146945,0,0,1.5146945,573.36989,352.80172)"
+         transform="matrix(1.5146945,0,0,1.5146945,574.45464,352.80167)"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:133.33334351px;line-height:0;font-family:sans-serif;-inkscape-font-specification:sans-serif;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:-4.46999979px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
          id="flowRoot979">
         <path
@@ -113,6 +113,16 @@
            id="path995"
            inkscape:connector-curvature="0" />
       </g>
-    </g>
+      <flowRoot
+         xml:space="preserve"
+         id="flowRoot852"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:133.33334351px;line-height:0;font-family:'BIZ UDMincho';-inkscape-font-specification:'BIZ UDMincho';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:-4.46999979px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"><flowRegion
+           id="flowRegion854"><rect
+             id="rect856"
+             width="174.07408"
+             height="401.85184"
+             x="1231.4814"
+             y="273.51849" /></flowRegion><flowPara
+           id="flowPara858"></flowPara></flowRoot>    </g>
   </g>
 </svg>
