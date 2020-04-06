@@ -21,7 +21,7 @@ $('.reset').on('click touchstart', function () {
 $('.button').on('click touchstart', function () {
 	if (0 < $(this).data('num')) {
 		inputNumber($(this).data('num'));
-	}else {
+	} else {
 		reset();
 	}
 });
@@ -104,6 +104,9 @@ function displayShareButton() {
 var windowWidth = window.innerWidth;
 var windowHeight = window.innerHeight;
 $('table').css('top', (windowHeight / 100) * 15 + 'px');
-$('.button-wrap').css({
-	top: (windowHeight / 100) * 30 + (windowWidth / 100) * 24 + 'px',
-});
+
+if (windowWidth < 1100) {
+	$('.button-wrap').css({
+		top: (windowHeight / 100) * 30 + (windowWidth / 100) * 24 + 'px',
+	});
+}
