@@ -57,17 +57,18 @@ function displayCircle() {
 		} else {
 			$('.s' + (-i + 9)).css('background-color', 'black');
 		}
-
-		console.log(flag_cnt);
-		// if (flag_cnt == 18) {
-		// 	$('.clear').addClass('displayClear');
-		// 	$('.clear-img').css('display', 'inline-block');
-			
-		// }else {
-		// 	flag_cnt = 0;
-		// }
 	}
+	
+	
 	$('.circle').css('opacity', 1);
+	if (flag_cnt == 18) {
+		$('.clear').addClass('displayClear');
+		$('.clear-img').css('display', 'inline-block');
+		
+	}else {
+		flag_cnt = 0;
+	}
+	
 }
 function reset() {
 	var reset_num = [1, 2, 3, 4, 5, 7, 8];
