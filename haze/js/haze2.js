@@ -1,4 +1,4 @@
-function displayHere(here, cells, width, height) {
+function displayHere() {
 	$('.box').css('border', '1px solid black');
 	if (cells[here][0] == 0) {
 		$('.box').css('background-color', 'white');
@@ -10,28 +10,28 @@ function displayHere(here, cells, width, height) {
 	} else {
 		$('.box').text('');
 	}
-	if (isRight(here, width)) {
+	if (isRight()) {
 		if (cells[here + 1][0] == 1) {
 			$('.box').css('border-right', '6px solid black');
 		}
 	} else {
 		$('.box').css('border-right', '3px solid black');
 	}
-	if (isLeft(here, width)) {
+	if (isLeft()) {
 		if (cells[here - 1][0] == 1) {
 			$('.box').css('border-left', '6px solid black');
 		}
 	} else {
 		$('.box').css('border-left', '3px solid black');
 	}
-	if (isUp(here, width)) {
+	if (isUp()) {
 		if (cells[here - width][0] == 1) {
 			$('.box').css('border-top', '6px solid black');
 		}
 	} else {
 		$('.box').css('border-top', '3px solid black');
 	}
-	if (isDown(here, width, height)) {
+	if (isDown()) {
 		if (cells[here + width][0] == 1) {
 			$('.box').css('border-bottom', '6px solid black');
 		}
@@ -40,49 +40,49 @@ function displayHere(here, cells, width, height) {
 	}
 }
 
-function isRight(here, width) {
+function isRight() {
 	return here % width != width - 1;
 }
-function isLeft(here, width) {
+function isLeft() {
 	return here % width != 0;
 }
-function isUp(here, width) {
+function isUp() {
 	return here > width - 1;
 }
-function isDown(here, width, height) {
+function isDown() {
 	return here < width * (height - 1);
 }
 
-function canRight(here, width, cells) {
+function canRight() {
 	var flag = false;
-	if (isRight(here, width)) {
+	if (isRight()) {
 		if (cells[here + 1][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
 }
-function canLeft(here, width, cells) {
+function canLeft() {
 	var flag = false;
-	if (isLeft(here, width)) {
+	if (isLeft()) {
 		if (cells[here - 1][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
 }
-function canUp(here, width, cells) {
+function canUp() {
 	var flag = false;
-	if (isUp(here, width)) {
+	if (isUp()) {
 		if (cells[here - width][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
 }
-function canDown(here, width, height, cells) {
+function canDown() {
 	var flag = false;
-	if (isDown(here, width, height)) {
+	if (isDown()) {
 		if (cells[here + width][0] == 0) {
 			flag = true;
 		}
@@ -118,7 +118,7 @@ var cells = [
 	[1, 0],
 ];
 var here = 10;
-function checkList(here, cells) {
+function checkList() {
 	var cnt = 0;
 	var list = [7, 11, 12, 13, 14, 17];
 	for (var i = 0; i < 6; i++) {
@@ -130,35 +130,35 @@ function checkList(here, cells) {
 		}
 	}
 }
-displayHere(here, cells, width, height);
+displayHere();
 
 $('html').keyup(function(e) {
 	switch (e.which) {
 		case 39: // Key[→]
-			if (canRight(here, width, cells)) {
+			if (canRight()) {
 				here++;
-				displayHere(here, cells, width, height);
+				displayHere();
 			}
 			break;
 
 		case 37: // Key[←]
-			if (canLeft(here, width, cells)) {
+			if (canLeft()) {
 				here--;
-				displayHere(here, cells, width, height);
+				displayHere();
 			}
 			break;
 
 		case 38: // Key[↑]
-			if (canUp(here, width, cells)) {
+			if (canUp()) {
 				here -= width;
-				displayHere(here, cells, width, height);
+				displayHere();
 			}
 			break;
 
 		case 40: // Key[↓]
-			if (canDown(here, width, height, cells)) {
+			if (canDown()) {
 				here += width;
-				displayHere(here, cells, width, height);
+				displayHere();
 			}
 			break;
 	}
@@ -167,37 +167,37 @@ $('html').keyup(function(e) {
 		case 7:
 			if (e.which == 79) {
 				cells[here][1] = 'O';
-				displayHere(here, cells, width, height);
-				checkList(here, cells);
+				displayHere();
+				checkList(here);
 			}
 			break;
 		case 11:
 		case 14:
 			if (e.which == 84) {
 				cells[here][1] = 'T';
-				displayHere(here, cells, width, height);
-				checkList(here, cells);
+				displayHere();
+				checkList(here);
 			}
 			break;
 		case 12:
 			if (e.which == 65) {
 				cells[here][1] = 'A';
-				displayHere(here, cells, width, height);
-				checkList(here, cells);
+				displayHere();
+				checkList(here);
 			}
 			break;
 		case 13:
 			if (e.which == 82) {
 				cells[here][1] = 'R';
-				displayHere(here, cells, width, height);
-				checkList(here, cells);
+				displayHere();
+				checkList(here);
 			}
 			break;
 		case 17:
 			if (e.which == 76) {
 				cells[here][1] = 'L';
-				displayHere(here, cells, width, height);
-				checkList(here, cells);
+				displayHere();
+				checkList(here);
 			}
 			break;
 	}

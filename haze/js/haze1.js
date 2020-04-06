@@ -1,4 +1,4 @@
-function displayHere(here, cells, width, height, point, goalPoint) {
+function displayHere() {
 	$('.box').css('border', '1px solid black');
 	if (cells[here][0] == 0) {
 		$('.box').css('background-color', 'white');
@@ -10,38 +10,38 @@ function displayHere(here, cells, width, height, point, goalPoint) {
 	} else {
 		$('.box').text('');
 	}
-	if (isRight(here, width)) {
+	if (isRight()) {
 		if (cells[here + 1][0] == 1) {
 			$('.box').css('border-right', '6px solid black');
 		}
 	} else {
 		$('.box').css('border-right', '3px solid black');
 	}
-	if (isLeft(here, width)) {
+	if (isLeft()) {
 		if (cells[here - 1][0] == 1) {
 			$('.box').css('border-left', '6px solid black');
 		}
 	} else {
 		$('.box').css('border-left', '3px solid black');
 	}
-	if (isUp(here, width)) {
+	if (isUp()) {
 		if (cells[here - width][0] == 1) {
 			$('.box').css('border-top', '6px solid black');
 		}
 	} else {
 		$('.box').css('border-top', '3px solid black');
 	}
-	if (isDown(here, width, height)) {
+	if (isDown()) {
 		if (cells[here + width][0] == 1) {
 			$('.box').css('border-bottom', '6px solid black');
 		}
 	} else {
 		$('.box').css('border-bottom', '3px solid black');
 	}
-	rotateArrow(point, point, goalPoint);
+	rotateArrow();
 }
 
-function rotateArrow(point, point, goalPoint) {
+function rotateArrow() {
 	if (goalPoint[0] == point[0] && goalPoint[1] == point[1]) {
 		$('#ue-img').css('display', 'none');
 		$('.displayClear').css('display', 'block');
@@ -60,49 +60,49 @@ function rotateArrow(point, point, goalPoint) {
 
 	$('#ue-img').css('transform', 'rotate(' + theta + 'deg)');
 }
-function isRight(here, width) {
+function isRight() {
 	return here % width != width - 1;
 }
-function isLeft(here, width) {
+function isLeft() {
 	return here % width != 0;
 }
-function isUp(here, width) {
+function isUp() {
 	return here > width - 1;
 }
-function isDown(here, width, height) {
+function isDown() {
 	return here < width * (height - 1);
 }
 
-function canRight(here, width, cells) {
+function canRight() {
 	var flag = false;
-	if (isRight(here, width)) {
+	if (isRight()) {
 		if (cells[here + 1][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
 }
-function canLeft(here, width, cells) {
+function canLeft() {
 	var flag = false;
-	if (isLeft(here, width)) {
+	if (isLeft()) {
 		if (cells[here - 1][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
 }
-function canUp(here, width, cells) {
+function canUp() {
 	var flag = false;
-	if (isUp(here, width)) {
+	if (isUp()) {
 		if (cells[here - width][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
 }
-function canDown(here, width, height, cells) {
+function canDown() {
 	var flag = false;
-	if (isDown(here, width, height)) {
+	if (isDown()) {
 		if (cells[here + width][0] == 0) {
 			flag = true;
 		}
@@ -137,40 +137,40 @@ var imgWidth = document.getElementById('ue-img').clientWidth;
 $('#ue-img').css('left', 'calc(50% - ' + imgWidth / 2 + 'px)');
 console.log(imgWidth);
 
-displayHere(here, cells, width, height, point, goalPoint);
+displayHere();
 
 $('html').keyup(function(e) {
 	if (!(goalPoint[0] == point[0] && goalPoint[1] == point[1])) {
 		switch (e.which) {
 			case 39: // Key[→]
-				if (canRight(here, width, cells)) {
+				if (canRight()) {
 					here++;
 					point[0]++;
-					displayHere(here, cells, width, height, point, goalPoint);
+					displayHere();
 				}
 				break;
 
 			case 37: // Key[←]
-				if (canLeft(here, width, cells)) {
+				if (canLeft()) {
 					here--;
 					point[0]--;
-					displayHere(here, cells, width, height, point, goalPoint);
+					displayHere();
 				}
 				break;
 
 			case 38: // Key[↑]
-				if (canUp(here, width, cells)) {
+				if (canUp()) {
 					here -= width;
 					point[1]--;
-					displayHere(here, cells, width, height, point, goalPoint);
+					displayHere();
 				}
 				break;
 
 			case 40: // Key[↓]
-				if (canDown(here, width, height, cells)) {
+				if (canDown()) {
 					here += width;
 					point[1]++;
-					displayHere(here, cells, width, height, point, goalPoint);
+					displayHere();
 				}
 				break;
 		}

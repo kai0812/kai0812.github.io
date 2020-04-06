@@ -1,4 +1,4 @@
-function displayHere(here, cells, width, height, point, goalPoint, change) {
+function displayHere() {
 	$('.box').css('border', '1px solid black');
 	if (cells[here][0] == 0) {
 		$('.box').css('background-color', 'white');
@@ -10,7 +10,7 @@ function displayHere(here, cells, width, height, point, goalPoint, change) {
 	} else {
 		$('.box').text('');
 	}
-	if (isRight(here, width)) {
+	if (isRight()) {
 		if (cells[here + 1][0] == 1) {
 			$('.box').css('border-right', '6px solid black');
 		} else if (cells[here + 1][0] == 2) {
@@ -19,7 +19,7 @@ function displayHere(here, cells, width, height, point, goalPoint, change) {
 	} else {
 		$('.box').css('border-right', '3px solid black');
 	}
-	if (isLeft(here, width)) {
+	if (isLeft()) {
 		if (cells[here - 1][0] == 1) {
 			$('.box').css('border-left', '6px solid black');
 		} else if (cells[here - 1][0] == 2) {
@@ -28,7 +28,7 @@ function displayHere(here, cells, width, height, point, goalPoint, change) {
 	} else {
 		$('.box').css('border-left', '3px solid black');
 	}
-	if (isUp(here, width)) {
+	if (isUp()) {
 		if (cells[here - width][0] == 1) {
 			$('.box').css('border-top', '6px solid black');
 		} else if (cells[here - width][0] == 2) {
@@ -37,7 +37,7 @@ function displayHere(here, cells, width, height, point, goalPoint, change) {
 	} else {
 		$('.box').css('border-top', '3px solid black');
 	}
-	if (isDown(here, width, height)) {
+	if (isDown()) {
 		if (cells[here + width][0] == 1) {
 			$('.box').css('border-bottom', '6px solid black');
 		} else if (cells[here + width][0] == 2) {
@@ -46,10 +46,10 @@ function displayHere(here, cells, width, height, point, goalPoint, change) {
 	} else {
 		$('.box').css('border-bottom', '3px solid black');
 	}
-	rotateArrow(point, goalPoint, change);
+	rotateArrow();
 }
 
-function rotateArrow(point, goalPoint, change) {
+function rotateArrow() {
 	if (goalPoint[0] == point[0] && goalPoint[1] == point[1] && change == 1) {
 		$('#ue-img').css('display', 'none');
 		return 0;
@@ -73,49 +73,49 @@ function rotateArrow(point, goalPoint, change) {
 
 	$('#ue-img').css('transform', 'rotate(' + theta + 'deg)');
 }
-function isRight(here, width) {
+function isRight() {
 	return here % width != width - 1;
 }
-function isLeft(here, width) {
+function isLeft() {
 	return here % width != 0;
 }
-function isUp(here, width) {
+function isUp() {
 	return here > width - 1;
 }
-function isDown(here, width, height) {
+function isDown() {
 	return here < width * (height - 1);
 }
 
-function canRight(here, width, cells) {
+function canRight() {
 	var flag = false;
-	if (isRight(here, width)) {
+	if (isRight()) {
 		if (cells[here + 1][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
 }
-function canLeft(here, width, cells) {
+function canLeft() {
 	var flag = false;
-	if (isLeft(here, width)) {
+	if (isLeft()) {
 		if (cells[here - 1][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
 }
-function canUp(here, width, cells) {
+function canUp() {
 	var flag = false;
-	if (isUp(here, width)) {
+	if (isUp()) {
 		if (cells[here - width][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
 }
-function canDown(here, width, height, cells) {
+function canDown() {
 	var flag = false;
-	if (isDown(here, width, height)) {
+	if (isDown()) {
 		if (cells[here + width][0] == 0) {
 			flag = true;
 		}
@@ -160,7 +160,7 @@ $('.changeW').click(function() {
 	here = startPoint[0] + startPoint[1] * width;
 	point[0] = startPoint[0];
 	point[1] = startPoint[1];
-	displayHere(here, cells, width, height, point, goalPoint, change);
+	displayHere();
 });
 $('.changeWB').click(function() {
 	$('.changeW').css('display', 'block');
@@ -168,10 +168,10 @@ $('.changeWB').click(function() {
 	here = startPoint[0] + startPoint[1] * width;
 	point[0] = startPoint[0];
 	point[1] = startPoint[1];
-	displayHere(here, cells, width, height, point, goalPoint, change);
+	displayHere();
 });
 
-displayHere(here, cells, width, height, point, goalPoint, change);
+displayHere();
 
 $('html').keyup(function(e) {
 	if (change == 0) {
@@ -179,16 +179,16 @@ $('html').keyup(function(e) {
 			case 13:
 				var canMove = 0;
 				var moveList = [0, 0, 0, 0];
-				if (isUp(here, width)) {
+				if (isUp()) {
 					moveList[0] = 1;
 				}
-				if (isRight(here, width)) {
+				if (isRight()) {
 					moveList[1] = 1;
 				}
-				if (isDown(here, width, height)) {
+				if (isDown()) {
 					moveList[2] = 1;
 				}
-				if (isLeft(here, width)) {
+				if (isLeft()) {
 					moveList[3] = 1;
 				}
 
@@ -255,38 +255,38 @@ $('html').keyup(function(e) {
 					}
 				}
 
-				displayHere(here, cells, width, height, point, goalPoint, change);
+				displayHere();
 				break;
 
 			case 39: // Key[→]
-				if (canRight(here, width, cells)) {
+				if (canRight()) {
 					here++;
 					point[0]++;
-					displayHere(here, cells, width, height, point, goalPoint, change);
+					displayHere();
 				}
 				break;
 
 			case 37: // Key[←]
-				if (canLeft(here, width, cells)) {
+				if (canLeft()) {
 					here--;
 					point[0]--;
-					displayHere(here, cells, width, height, point, goalPoint, change);
+					displayHere();
 				}
 				break;
 
 			case 38: // Key[↑]
-				if (canUp(here, width, cells)) {
+				if (canUp()) {
 					here -= width;
 					point[1]--;
-					displayHere(here, cells, width, height, point, goalPoint, change);
+					displayHere();
 				}
 				break;
 
 			case 40: // Key[↓]
-				if (canDown(here, width, height, cells)) {
+				if (canDown()) {
 					here += width;
 					point[1]++;
-					displayHere(here, cells, width, height, point, goalPoint, change);
+					displayHere();
 				}
 				break;
 		}
@@ -295,16 +295,16 @@ $('html').keyup(function(e) {
 			case 13:
 				var canMove = 0;
 				var moveList = [0, 0, 0, 0];
-				if (isUp(here, width)) {
+				if (isUp()) {
 					moveList[0] = 1;
 				}
-				if (isRight(here, width)) {
+				if (isRight()) {
 					moveList[1] = 1;
 				}
-				if (isDown(here, width, height)) {
+				if (isDown()) {
 					moveList[2] = 1;
 				}
-				if (isLeft(here, width)) {
+				if (isLeft()) {
 					moveList[3] = 1;
 				}
 
@@ -371,45 +371,45 @@ $('html').keyup(function(e) {
 					}
 				}
 
-				displayHere(here, cells, width, height, point, goalPoint, change);
+				displayHere();
 				break;
 
 			case 39: // Key[→]
-				if (isRight(here, width, cells)) {
+				if (isRight()) {
 					if (cells[here + 1][0] != 2) {
 						here++;
 						point[0]++;
-						displayHere(here, cells, width, height, point, goalPoint, change);
+						displayHere();
 					}
 				}
 				break;
 
 			case 37: // Key[←]
-				if (isLeft(here, width, cells)) {
+				if (isLeft()) {
 					if (cells[here - 1][0] != 2) {
 						here--;
 						point[0]--;
-						displayHere(here, cells, width, height, point, goalPoint, change);
+						displayHere();
 					}
 				}
 				break;
 
 			case 38: // Key[↑]
-				if (isUp(here, width, cells)) {
+				if (isUp()) {
 					if (cells[here - width][0] != 2) {
 						here -= width;
 						point[1]--;
-						displayHere(here, cells, width, height, point, goalPoint, change);
+						displayHere();
 					}
 				}
 				break;
 
 			case 40: // Key[↓]
-				if (isDown(here, width, height, cells)) {
+				if (isDown()) {
 					if (cells[here + width][0] != 2) {
 						here += width;
 						point[1]++;
-						displayHere(here, cells, width, height, point, goalPoint, change);
+						displayHere();
 					}
 				}
 				break;
