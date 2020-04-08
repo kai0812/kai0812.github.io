@@ -126,6 +126,7 @@ body {
 	&:hover {
 		opacity: 0.6;
 	}
+	-webkit-user-drag: none;
 }
 
 .box2 {
@@ -161,10 +162,12 @@ body {
 	right: calc(25vw - 15vh);
 	top: 50%;
 	transform: translate(50%, -50%);
-	transition: opacity .5s;
+	transition: opacity 0.5s;
 	opacity: 1;
 	cursor: pointer;
 	&:hover {
-		opacity: .5;
+		opacity: 0.5;
 	}
+	-webkit-user-drag: none;
+
 }

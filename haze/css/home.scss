@@ -30,7 +30,7 @@ a {
 		width: 85%;
 		border: 1.5px solid black;
 		line-height: 100%;
-		transition: background-color .5s;
+		transition: background-color 0.5s;
 		cursor: pointer;
 		&:hover {
 			background-color: black;
@@ -44,13 +44,13 @@ a {
 	width: 100%;
 	text-align: center;
 	margin: 50px auto;
-	&:hover {
-		font-size: 0;
-		&:before {
-			font-size: 10vw;
-			content: 'MAZE';
-		}
-	}
+	// &:hover {
+	// 	font-size: 0;
+	// 	&:before {
+	// 		font-size: 10vw;
+	// 		content: 'MAZE';
+	// 	}
+	// }
 }
 .caution {
 	padding: 15px 20px 0 30px;

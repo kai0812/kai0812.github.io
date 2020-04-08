@@ -1,4 +1,4 @@
-function displayHere() {
+let displayHere = () => {
 	$('.box').css('border', '1px solid black');
 	if (cells[here][0] == 0) {
 		$('.box').css('background-color', 'white');
@@ -39,9 +39,9 @@ function displayHere() {
 		$('.box').css('border-bottom', '3px solid black');
 	}
 	rotateArrow();
-}
+};
 
-function rotateArrow() {
+let rotateArrow = () => {
 	if (goalPoint[0] == point[0] && goalPoint[1] == point[1]) {
 		$('#ue-img').css('display', 'none');
 		$('.displayClear').css('display', 'block');
@@ -49,9 +49,9 @@ function rotateArrow() {
 		$('#ue-img').css('display', 'block');
 	}
 
-	var atan = Math.atan((goalPoint[1] - point[1]) / (goalPoint[0] - point[0])) * (180 / Math.PI);
+	let atan = Math.atan((goalPoint[1] - point[1]) / (goalPoint[0] - point[0])) * (180 / Math.PI);
 
-	var theta;
+	let theta;
 	if (goalPoint[0] - point[0] >= 0) {
 		theta = 90 + atan;
 	} else {
@@ -59,60 +59,60 @@ function rotateArrow() {
 	}
 
 	$('#ue-img').css('transform', 'rotate(' + theta + 'deg)');
-}
-function isRight() {
+};
+let isRight = () => {
 	return here % width != width - 1;
-}
-function isLeft() {
+};
+let isLeft = () => {
 	return here % width != 0;
-}
-function isUp() {
+};
+let isUp = () => {
 	return here > width - 1;
-}
-function isDown() {
+};
+let isDown = () => {
 	return here < width * (height - 1);
-}
+};
 
-function canRight() {
-	var flag = false;
+let canRight = () => {
+	let flag = false;
 	if (isRight()) {
 		if (cells[here + 1][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
-}
-function canLeft() {
-	var flag = false;
+};
+let canLeft = () => {
+	let flag = false;
 	if (isLeft()) {
 		if (cells[here - 1][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
-}
-function canUp() {
-	var flag = false;
+};
+let canUp = () => {
+	let flag = false;
 	if (isUp()) {
 		if (cells[here - width][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
-}
-function canDown() {
-	var flag = false;
+};
+let canDown = () => {
+	let flag = false;
 	if (isDown()) {
 		if (cells[here + width][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
-}
+};
 
-var width = 4;
-var height = 4;
-var cells = [
+const width = 4;
+const height = 4;
+let cells = [
 	[0, 'S'],
 	[0, 0],
 	[0, 0],
@@ -130,16 +130,15 @@ var cells = [
 	[0, 'G'],
 	[0, 0],
 ];
-var here = 0;
-var point = [0, 0];
-var goalPoint = [2, 3];
-var imgWidth = document.getElementById('ue-img').clientWidth;
+let here = 0;
+let point = [0, 0];
+let goalPoint = [2, 3];
+let imgWidth = document.getElementById('ue-img').clientWidth;
 $('#ue-img').css('left', 'calc(50% - ' + imgWidth / 2 + 'px)');
-console.log(imgWidth);
 
 displayHere();
 
-$('html').keyup(function(e) {
+$('html').keyup((e) => {
 	if (!(goalPoint[0] == point[0] && goalPoint[1] == point[1])) {
 		switch (e.which) {
 			case 39: // Key[→]

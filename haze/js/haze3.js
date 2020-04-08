@@ -1,4 +1,4 @@
-function displayHere() {
+let displayHere = () => {
 	$('.box').css('border', '1px solid black');
 	if (cells[here][0] == 0) {
 		$('.box').css('background-color', 'white');
@@ -40,9 +40,9 @@ function displayHere() {
 	}
 
 	rotateArrow();
-}
+};
 
-function rotateArrow() {
+let rotateArrow = () => {
 	if (goalPoint[0] == point[0] && goalPoint[1] == point[1]) {
 		$('#ue-img').css('display', 'none');
 	} else {
@@ -74,14 +74,14 @@ function rotateArrow() {
 		$('#ue-img6').css('display', 'block');
 	}
 
-	var atan = Math.atan((goalPoint[1] - point[1]) / (goalPoint[0] - point[0])) * (180 / Math.PI);
-	var atan2 = Math.atan((goalPoint2[1] - point[1]) / (goalPoint2[0] - point[0])) * (180 / Math.PI);
-	var atan3 = Math.atan((goalPoint3[1] - point[1]) / (goalPoint3[0] - point[0])) * (180 / Math.PI);
-	var atan4 = Math.atan((goalPoint4[1] - point[1]) / (goalPoint4[0] - point[0])) * (180 / Math.PI);
-	var atan5 = Math.atan((goalPoint5[1] - point[1]) / (goalPoint5[0] - point[0])) * (180 / Math.PI);
-	var atan6 = Math.atan((goalPoint6[1] - point[1]) / (goalPoint6[0] - point[0])) * (180 / Math.PI);
+	let atan = Math.atan((goalPoint[1] - point[1]) / (goalPoint[0] - point[0])) * (180 / Math.PI);
+	let atan2 = Math.atan((goalPoint2[1] - point[1]) / (goalPoint2[0] - point[0])) * (180 / Math.PI);
+	let atan3 = Math.atan((goalPoint3[1] - point[1]) / (goalPoint3[0] - point[0])) * (180 / Math.PI);
+	let atan4 = Math.atan((goalPoint4[1] - point[1]) / (goalPoint4[0] - point[0])) * (180 / Math.PI);
+	let atan5 = Math.atan((goalPoint5[1] - point[1]) / (goalPoint5[0] - point[0])) * (180 / Math.PI);
+	let atan6 = Math.atan((goalPoint6[1] - point[1]) / (goalPoint6[0] - point[0])) * (180 / Math.PI);
 
-	var theta, theta2, theta3, theta4, theta5, theta6;
+	let theta, theta2, theta3, theta4, theta5, theta6;
 	if (goalPoint[0] - point[0] >= 0) {
 		theta = 90 + atan;
 	} else {
@@ -119,61 +119,61 @@ function rotateArrow() {
 	$('#ue-img4').css('transform', 'rotate(' + theta4 + 'deg)');
 	$('#ue-img5').css('transform', 'rotate(' + theta5 + 'deg)');
 	$('#ue-img6').css('transform', 'rotate(' + theta6 + 'deg)');
-}
+};
 
-function isRight() {
+let isRight = () => {
 	return here % width != width - 1;
-}
-function isLeft() {
+};
+let isLeft = () => {
 	return here % width != 0;
-}
-function isUp() {
+};
+let isUp = () => {
 	return here > width - 1;
-}
-function isDown() {
+};
+let isDown = () => {
 	return here < width * (height - 1);
-}
+};
 
-function canRight() {
-	var flag = false;
+let canRight = () => {
+	let flag = false;
 	if (isRight()) {
 		if (cells[here + 1][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
-}
-function canLeft() {
-	var flag = false;
+};
+let canLeft = () => {
+	let flag = false;
 	if (isLeft()) {
 		if (cells[here - 1][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
-}
-function canUp() {
-	var flag = false;
+};
+let canUp = () => {
+	let flag = false;
 	if (isUp()) {
 		if (cells[here - width][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
-}
-function canDown() {
-	var flag = false;
+};
+let canDown = () => {
+	let flag = false;
 	if (isDown()) {
 		if (cells[here + width][0] == 0) {
 			flag = true;
 		}
 	}
 	return flag;
-}
+};
 
-var width = 6;
-var height = 5;
-var cells = [
+const width = 6;
+const height = 5;
+let cells = [
 	[0, 0],
 	[0, 0],
 	[0, 0],
@@ -210,56 +210,56 @@ var cells = [
 	[1, 0],
 ];
 
-function typeAst(key_number) {
-	var check_cnt = 0;
-	var check_list = [83, 81, 85, 65, 82, 69];
+let typeAst = (key_number) => {
+	let check_cnt = 0;
+	let check_list = [83, 81, 85, 65, 82, 69];
 
 	if (ast_cnt < 6) {
 		ast_list[ast_cnt] = key_number;
 		ast_cnt++;
 	}
-	for (var i = 0; i < ast_cnt; i++) {
+	for (let i = 0; i < ast_cnt; i++) {
 		$('#span-' + (i + 1)).css('opacity', 1);
 	}
-	for (var i = 0; i < 6; i++) {
+	for (let i = 0; i < 6; i++) {
 		if (check_list[i] == ast_list[i]) {
 			check_cnt++;
 		}
 	}
 	if (check_cnt == 6) {
 		$('.displayClear').css('display', 'block');
-		clear_flag = false;
+		clear_flag = true;
 	}
 	console.log(ast_list);
-}
+};
 
-function deleteAst() {
+let deleteAst = () => {
 	if (1 <= ast_cnt <= 6) {
 		$('#span-' + ast_cnt).css('opacity', 0);
 		ast_cnt--;
 		ast_list[ast_cnt] = 0;
 		console.log(ast_list);
 	}
-}
-var here = 18;
-var point = [0, 3];
-var goalPoint = [0, 3];
-var goalPoint2 = [4, 2];
-var goalPoint3 = [2, 3];
-var goalPoint4 = [0, 0];
-var goalPoint5 = [5, 2];
-var goalPoint6 = [4, 0];
-var windowHeight = window.innerHeight;
-var ast_list = [0, 0, 0, 0, 0, 0];
-var ast_cnt = 0;
-var clear_flag = true;
+};
+let here = 18;
+let point = [0, 3];
+let goalPoint = [0, 3];
+let goalPoint2 = [4, 2];
+let goalPoint3 = [2, 3];
+let goalPoint4 = [0, 0];
+let goalPoint5 = [5, 2];
+let goalPoint6 = [4, 0];
+let windowHeight = window.innerHeight;
+let ast_list = [0, 0, 0, 0, 0, 0];
+let ast_cnt = 0;
+let clear_flag = false;
 
 $('.img-arrow').css('left', 'calc(50% - ' + (windowHeight * 0.98 * 155 * 0.5) / 909 + 'px)');
 
 displayHere();
 
-$('html').keyup(function(e) {
-	if (clear_flag) {
+$('html').keyup((e) => {
+	if (!clear_flag) {
 		switch (e.which) {
 			case 8:
 				deleteAst();
