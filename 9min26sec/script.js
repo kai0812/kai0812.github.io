@@ -1,34 +1,6 @@
-'use strict';
-
-var flag = false;
-var flag_cnt = 0;
-var num = [6, 0, 0, 0, 0, 0, 0, 0, 9];
-var num_cnt = 1;
-$('html').keyup(function (e) {
-	if (!flag) {
-		if (49 <= e.which && e.which <= 56) {
-			inputNumber(e.which - 48);
-		}
-		if (e.which == 13) {
-			reset();
-		}
-	}
-});
-
-$('.reset').on('touchstart click', function () {
-	reset();
-});
-$('.button').on('touchstart click', function () {
-	if (0 < $(this).data('num')) {
-		inputNumber($(this).data('num'));
-	} else {
-		reset();
-	}
-});
-
-function inputNumber(input) {
-	var dif_cnt = 0;
-	for (var i = 0; i < 9; i++) {
+let inputNumber = (input) => {
+	let dif_cnt = 0;
+	for (let i = 0; i < 9; i++) {
 		if (num[i] != input) {
 			dif_cnt++;
 		}
@@ -43,12 +15,12 @@ function inputNumber(input) {
 		flag = true;
 		displayCircle();
 	}
-}
+};
 
-function displayCircle() {
-	var total = 0;
-	var total2 = 0;
-	for (var i = 0; i < 9; i++) {
+let displayCircle = () => {
+	let total = 0;
+	let total2 = 0;
+	for (let i = 0; i < 9; i++) {
 		total = total * 10 + num[i];
 		total2 = total2 * 10 + num[8 - i];
 		if (total % num[i] == 0) {
@@ -70,17 +42,19 @@ function displayCircle() {
 		$('.clear').addClass('displayClear');
 		$('.clear-img').css('display', 'inline-block');
 		displayShareButton();
-		$(window).resize(function () {
-			displayShareButton();
-		});
+		$(window).resize(
+			(let = () => {
+				displayShareButton();
+			})
+		);
 		$('.reload').css('display', 'inline-block');
 	} else {
 		flag_cnt = 0;
 	}
-}
-function reset() {
-	var reset_num = [1, 2, 3, 4, 5, 7, 8];
-	for (var i = 1; i < 8; i++) {
+};
+let reset = () => {
+	let reset_num = [1, 2, 3, 4, 5, 7, 8];
+	for (let i = 1; i < 8; i++) {
 		num[i] = 0;
 		$('.mid-num').text('?');
 		$('.button' + reset_num[i - 1]).css('visibility', 'visible');
@@ -89,13 +63,13 @@ function reset() {
 	flag = false;
 	$('.circle').css('opacity', 0);
 	flag_cnt = 0;
-}
+};
 
-function displayShareButton() {
-	var window_width = window.innerWidth;
-	var window_height = window.innerHeight;
-	var clear_width = $('.clear-img').width();
-	var clear_height = $('.clear-img').height();
+let displayShareButton = () => {
+	let window_width = window.innerWidth;
+	let window_height = window.innerHeight;
+	let clear_width = $('.clear-img').width();
+	let clear_height = $('.clear-img').height();
 	$('.share-btn').css({
 		top: window_height / 2 + clear_height / 2 + 'px',
 		right: window_width / 2 - clear_width / 2 + 'px',
@@ -114,10 +88,36 @@ function displayShareButton() {
 			height: ((window_height - clear_height) / 2) * 0.4 + 'px',
 		});
 	}
-}
+};
 
-var windowWidth = window.innerWidth;
-var windowHeight = window.innerHeight;
+let flag = false;
+let flag_cnt = 0;
+let num = [6, 0, 0, 0, 0, 0, 0, 0, 9];
+let num_cnt = 1;
+$('html').keyup((e) => {
+	if (!flag) {
+		if (49 <= e.which && e.which <= 56) {
+			inputNumber(e.which - 48);
+		}
+		if (e.which == 13) {
+			reset();
+		}
+	}
+});
+
+$('.reset').on('touchstart click', () => {
+	reset();
+});
+$('.button').on('touchstart click', (event) => {
+	if (0 < $(event.currentTarget).data('num')) {
+		inputNumber($(event.currentTarget).data('num'));
+	} else {
+		reset();
+	}
+});
+
+let windowWidth = window.innerWidth;
+let windowHeight = window.innerHeight;
 $('table').css('top', (windowHeight / 100) * 15 + 'px');
 
 if (windowWidth < 1100) {
@@ -126,7 +126,7 @@ if (windowWidth < 1100) {
 	});
 }
 
-$('.reload').on('click touchstart', function () {
+$('.reload').on('click touchstart', () => {
 	$('.reload').css('display', 'none');
 	$('.clear-img').css('display', 'none');
 	$('.share-btn').css({
