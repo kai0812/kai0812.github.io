@@ -151,16 +151,21 @@ let canMove = (direction) => {
 			}
 			break;
 		case 1:
+			
 			if (isRight()) {
+				
 				switch (currentFace[here + 1][0]) {
 					case 0:
 						return false;
 					case 1:
 						return true;
 					case 2:
-						if (currentFace[here + 1][4] == 1) {
+						
+						if (currentFace[here + 1][4] == 0) {
+							console.log('hello');
 							return true;
 						} else {
+							console.log('bad');
 							return false;
 						}
 				}
@@ -174,7 +179,7 @@ let canMove = (direction) => {
 					case 1:
 						return true;
 					case 2:
-						if (currentFace[here + width][1] == 1) {
+						if (currentFace[here + width][1] == 0) {
 							return true;
 						} else {
 							return false;
@@ -190,7 +195,7 @@ let canMove = (direction) => {
 					case 1:
 						return true;
 					case 2:
-						if (currentFace[here - 1][2] == 1) {
+						if (currentFace[here - 1][2] == 0) {
 							return true;
 						} else {
 							return false;
@@ -231,6 +236,64 @@ let rotateFace = (face, status) => {
 	return rotateFace(rotatedFace, status - 1);
 };
 
+// return [face, rotation]
+let getTouchingFace = (direction) => [
+	touchingFace[currentStatus[0]][(direction - currentStatus[1]) % 4][0],
+	(touchingFace[currentStatus[0]][(direction - currentStatus[1]) % 4][1] + currentStatus[1]) % 4,
+];
+
+let canMoveFace = (direction, touchingFaceStatus) => {
+	let rotatedFace = rotateFace(allFaces[touchingFaceStatus[0] - 1], touchingFaceStatus[1]);
+	switch (direction) {
+		case 0:
+			switch (rotatedFace[here + (height - 1) * width][0]) {
+				case 0:
+					return false;
+				case 1:
+					return true;
+				case 2:
+					if (rotatedFace[here + (height - 1) * width][3] == 1) return false;
+					else return true;
+			}
+		case 1:
+			switch (rotatedFace[here - (width - 1)][0]) {
+				case 0:
+					return false;
+				case 1:
+					return true;
+				case 2:
+					if (rotatedFace[here - (width - 1)][4] == 1) return false;
+					else return true;
+			}
+		case 2:
+			switch (rotatedFace[here - (height - 1) * width][0]) {
+				case 0:
+					return false;
+				case 1:
+					return true;
+				case 2:
+					if (rotatedFace[here - (height - 1) * width][1] == 1) return false;
+					else return true;
+			}
+		case 3:
+			switch (rotatedFace[here + (width - 1)][0]) {
+				case 0:
+					return false;
+				case 1:
+					return true;
+				case 2:
+					if (rotatedFace[here + (width - 1)][2] == 1) return false;
+					else return true;
+			}
+	}
+};
+let updateCurrentStatus = (direction) => {
+	currentStatus = getTouchingFace(direction);
+};
+let updateCurrentFace = () => {
+	currentFace = rotateFace(allFaces[currentStatus[0] - 1], currentStatus[1]);
+};
+
 const width = 3;
 const height = 3;
 const face1 = [[1], [1], [1], [1], [2, 1, 0, 1, 0], [2, 1, 0, 1, 0], [1], [1], [1]];
@@ -239,12 +302,52 @@ const face3 = [[1], [1], [1], [1], [0], [0], [1], [1], [1]];
 const face4 = [[1], [1], [1], [1], [2, 1, 0, 0, 0], [1], [1], [0], [1]];
 const face5 = [[1], [1], [1], [1], [2, 1, 0, 0, 0], [1], [1], [0], [0]];
 const face6 = face1;
+const allFaces = [face1, face2, face3, face4, face5, face6];
 let clear_flag = false;
 let here = 4;
 let point = [here % width, Math.floor(here / width)];
 let str = [];
 const comparedStr = [69, 83, 67, 66, 80, 69];
 let currentFace = face1;
+const touchingFace = [
+	[
+		[3, 3],
+		[2, 0],
+		[5, 3],
+		[4, 0],
+	],
+	[
+		[3, 0],
+		[6, 0],
+		[5, 2],
+		[1, 0],
+	],
+	[
+		[4, 2],
+		[6, 3],
+		[2, 0],
+		[1, 1],
+	],
+	[
+		[3, 2],
+		[1, 0],
+		[5, 0],
+		[6, 0],
+	],
+	[
+		[4, 0],
+		[1, 1],
+		[2, 2],
+		[6, 3],
+	],
+	[
+		[3, 3],
+		[4, 0],
+		[5, 1],
+		[2, 0],
+	],
+];
+let currentStatus = [1, 0];
 
 displayHere(currentFace);
 
@@ -256,15 +359,30 @@ $('html').keyup((e) => {
 					updateHere(0);
 					updatePoint();
 					displayHere();
-				}else {
-
+				} else {
+					if (canMoveFace(0, getTouchingFace(0))) {
+						here += (height - 1) * width;
+						updatePoint();
+						updateCurrentStatus(0);
+						updateCurrentFace(getTouchingFace(0));
+						displayHere();
+					}
 				}
 				break;
 			case 39: // Key[→]
 				if (canMove(1)) {
+					
 					updateHere(1);
 					updatePoint();
 					displayHere();
+				} else {
+					if (canMoveFace(1, getTouchingFace(1))) {
+						here -= width - 1;
+						updatePoint();
+						updateCurrentStatus(1);
+						updateCurrentFace(getTouchingFace(1));
+						displayHere();
+					}
 				}
 				break;
 			case 40: // Key[↓]
@@ -272,6 +390,14 @@ $('html').keyup((e) => {
 					updateHere(2);
 					updatePoint();
 					displayHere();
+				} else {
+					if (canMoveFace(2, getTouchingFace(2))) {
+						here -= (height - 1) * width;
+						updatePoint();
+						updateCurrentStatus(2);
+						updateCurrentFace(getTouchingFace(2));
+						displayHere();
+					}
 				}
 				break;
 			case 37: // Key[←]
@@ -279,6 +405,14 @@ $('html').keyup((e) => {
 					updateHere(3);
 					updatePoint();
 					displayHere();
+				} else {
+					if (canMoveFace(3, getTouchingFace(3))) {
+						here += width - 1;
+						updatePoint();
+						updateCurrentStatus(3);
+						updateCurrentFace(getTouchingFace(3));
+						displayHere();
+					}
 				}
 				break;
 			default:
